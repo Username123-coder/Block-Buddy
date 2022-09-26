@@ -35,8 +35,15 @@ function click(name) {
     window.location.href = "main.html";
 }
 
+function ret(name) {
+    chrome.action.setPopup({popup: "popup.html"});
+    window.location.href = "popup.html";
+}
+
 window.onload = async () => {
     var el = document.getElementById("add/rem");
     el.addEventListener("click", addrem);
+    var b = document.getElementById("back");
+    b.addEventListener("click", ret);
     init();
 };
