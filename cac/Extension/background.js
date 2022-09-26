@@ -11,58 +11,65 @@ class SQLClient {
     }
 
     async apiGetLists() {
-        var res = await fetch( "http://192.168.0.103:8081/getLists", {
-            method: 'POST',
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                "user": this.user
-            })
-        });
+        if (this.user) {
+            var res = await fetch( "http://192.168.0.103:8081/getLists", {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    "user": this.user.user
+                })
+            });
 
-        res = await res.json();
-        return ret.lists;
+            res = await res.json();
+            return res.lists;
+        }
+        return null;
     }
 }
 
 class Lists extends SQLClient {
     #lists;
+
+    async processLists() {
+        let l = this.lists.length;
+        let temp = this.lists;
+        this.lists = [];
+
+        for (let i = 0; i < l; i++) {
+            if (temp[i].enable == 1) {
+                this.lists.push(temp[i].listStr.split(","));
+            }
+        }
+    }
+
     async initLists() {
         await this.initUser();
         this.lists = await this.apiGetLists();
-        this.processLists();
-    }
-
-    processLists() {
-        l = this.lists;
-        this.lists = [];
-
-        for (let i = 0; i < l.length; i++) {
-            if (l[i].enabled == 1) {
-                this.lists.push(this.lists[i].listStr.split(","));
-            }
+        if (this.lists != null) {
+            this.processLists();
         }
     }
 
-    async changeDocument() {
-        chrome.tabs.onActivated.addListener(async info => {
-            chrome.scripting.executeScript({
-              target: {tabId: info.tabId},
-              func: this.censure,
-            }).catch(console.error);
-        });          
-    }
-    
-    censure() {
-        for (let i = 0; i < this.lists.length; i++) {
-            for (let j = 0; j < this.lists[i].length; j++) {
-                document.body.innerHTML = document.body.innerHTML.replace(this.lists[i][j], "[censured]");
-            }
-        }
+    getList() {
+        return this.lists;
     }
 }
 
 c = new Lists();
-c.initLists();
-c.changeDocument();
+chrome.tabs.onUpdated.addListener( function (tabId, changeInfo, tab) {
+    if (changeInfo.status == 'complete') {
+        c.initLists();
+        chrome.scripting.executeScript({
+            target: {tabId: tabId},
+            files: ['inject.js']
+        })
+        
+        chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+            if (request.method == "getLocalStorage") {
+                sendResponse({data: c.getList()});
+            }
+        });
+    }
+})
