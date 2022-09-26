@@ -11,10 +11,31 @@ async function add() {
         })
     });
 
-    ret = await res.json();
+    var ret = await res.json();
     var lists = ret.lists;
+    var input = document.getElementById("name").value;
+    var num = lists.length + 1;
 
-    var name = "List " + (lists.length + 1);
+    if (input === "") {
+        var name = "List " + num;
+    } else {
+        name = document.getElementById("name").value;
+    }
+
+    for (let i = 0; i < lists.length; i++) {
+        if (name === lists[i].listName) {
+            if (input == "") {
+                num += 1;
+                name = "List " + num;
+                i = 0;
+            } else {
+                document.getElementById("out").innerHTML = "That name is used in another list.";
+                return;
+            }
+        }
+    }
+
+    document.getElementById("out").innerHTML = name + " has been successfully added.";
 
     var res = await fetch( "http://192.168.0.103:8081/addList", {
         method: 'POST',
@@ -32,6 +53,9 @@ async function add() {
 
 async function remove() {
     var l = await chrome.storage.local.get(['user']);
+    var name = document.getElementById("name").value;
+
+    document.getElementById("out").innerHTML = name + " has been successfully deleted.";
 
     var res = await fetch( "http://192.168.0.103:8081/removeList", {
         method: 'POST',
@@ -40,7 +64,7 @@ async function remove() {
         },
         body: JSON.stringify({
             "user": l.user,
-            "name": document.getElementById("name").value
+            "name": name
         })
     });
 }
