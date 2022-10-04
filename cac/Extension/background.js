@@ -69,6 +69,8 @@ chrome.tabs.onUpdated.addListener( function (tabId, changeInfo, tab) {
         chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
             if (request.method == "getLocalStorage") {
                 sendResponse({data: c.getList()});
+            } else if (request.method == "tab") {
+                console.log(request.u + request.t);
             }
         });
     }
