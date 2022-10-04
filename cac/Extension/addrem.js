@@ -14,7 +14,7 @@ async function add() {
     var ret = await res.json();
     var lists = ret.lists;
     var input = document.getElementById("name").value;
-    var num = lists.length + 1;
+    var num = 1;
 
     if (input === "") {
         var name = "List " + num;
