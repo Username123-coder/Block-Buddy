@@ -29,6 +29,11 @@ function addrem() {
     window.location.href = "addrem.html";
 }
 
+function newTab() {
+    chrome.action.setPopup({popup: "tab.html"});
+    window.location.href = "tab.html";
+}
+
 function click(name) {
     chrome.storage.local.set({"name": name});
     chrome.action.setPopup({popup: "main.html"});
@@ -45,5 +50,7 @@ window.onload = async () => {
     el.addEventListener("click", addrem);
     var b = document.getElementById("back");
     b.addEventListener("click", ret);
+    var t = document.getElementById("tab");
+    t.addEventListener("click", newTab);
     init();
 };
