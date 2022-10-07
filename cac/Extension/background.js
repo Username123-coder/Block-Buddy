@@ -52,6 +52,17 @@ class Lists extends SQLClient {
         }
     }
 
+    checkURL(url) {
+        if (this.lists) {
+            let l = this.lists.length;
+            for (let i = 0; i < l; i++) {
+                if (this.lists[i].includes(url)) return true;
+            }
+            return false;
+        }
+        return false;
+    }
+
     getList() {
         return this.lists;
     }
@@ -61,6 +72,11 @@ c = new Lists();
 chrome.tabs.onUpdated.addListener( function (tabId, changeInfo, tab) {
     if (changeInfo.status == 'complete') {
         c.initLists();
+
+        if (c.checkURL(tab.url)) {
+            chrome.tabs.remove(tabId);
+        }
+
         chrome.scripting.executeScript({
             target: {tabId: tabId},
             files: ['inject.js']
