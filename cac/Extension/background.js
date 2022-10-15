@@ -101,8 +101,8 @@ chrome.tabs.onUpdated.addListener( function (tabId, changeInfo, tab) {
                 chrome.alarms.onAlarm.addListener(function (alarm) {
                     if (alarm.name === 'openTab') {
                         chrome.tabs.create({ url: request.u, active: true });
-                        }
-                    });
+                    }
+                });
             }
         });
     }
