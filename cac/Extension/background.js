@@ -87,6 +87,22 @@ chrome.tabs.onUpdated.addListener( function (tabId, changeInfo, tab) {
                 sendResponse({data: c.getList()});
             } else if (request.method == "tab") {
                 console.log(request.u + request.t);
+                var now = new Date();
+                var day = now.getDate();
+                var year = now.getFullYear();
+                var month = now.getMonth();
+
+                var timestamp = +new Date(year, month, day, request.t.split(":")[0], request.t.split(":")[1], 0, 0);
+
+                chrome.alarms.create('openTab', {
+                    when: timestamp
+                });
+
+                chrome.alarms.onAlarm.addListener(function (alarm) {
+                    if (alarm.name === 'openTab') {
+                        chrome.tabs.create({ url: request.u, active: true });
+                        }
+                    });
             }
         });
     }
