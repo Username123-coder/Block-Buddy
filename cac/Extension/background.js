@@ -68,6 +68,10 @@ class Lists extends SQLClient {
     }
 }
 
+chrome.alarms.onAlarm.addListener(function (alarm) {
+    chrome.tabs.create({ url: alarm.name, active: true });
+});
+
 c = new Lists();
 chrome.tabs.onUpdated.addListener( function (tabId, changeInfo, tab) {
     if (changeInfo.status == 'complete') {
@@ -80,10 +84,6 @@ chrome.tabs.onUpdated.addListener( function (tabId, changeInfo, tab) {
         chrome.scripting.executeScript({
             target: {tabId: tabId},
             files: ['inject.js']
-        });
-
-        chrome.alarms.onAlarm.addListener(function (alarm) {
-            chrome.tabs.create({ url: alarm.name, active: true });
         });
         
         chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
