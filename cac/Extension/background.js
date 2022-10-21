@@ -80,28 +80,24 @@ chrome.tabs.onUpdated.addListener( function (tabId, changeInfo, tab) {
         chrome.scripting.executeScript({
             target: {tabId: tabId},
             files: ['inject.js']
-        })
+        });
+
+        chrome.alarms.onAlarm.addListener(function (alarm) {
+            chrome.tabs.create({ url: alarm.name, active: true });
+        });
         
         chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
             if (request.method == "getLocalStorage") {
                 sendResponse({data: c.getList()});
             } else if (request.method == "tab") {
-                console.log(request.u + request.t);
                 var now = new Date();
                 var day = now.getDate();
                 var year = now.getFullYear();
                 var month = now.getMonth();
 
                 var timestamp = +new Date(year, month, day, request.t.split(":")[0], request.t.split(":")[1], 0, 0);
-
-                chrome.alarms.create('openTab', {
+                chrome.alarms.create(request.u, {
                     when: timestamp
-                });
-
-                chrome.alarms.onAlarm.addListener(function (alarm) {
-                    if (alarm.name === 'openTab') {
-                        chrome.tabs.create({ url: request.u, active: true });
-                    }
                 });
             }
         });
