@@ -1,8 +1,42 @@
 <html>
     <script src="addrem.js"></script>
-    <button id="ret">Go back</button>
+    <body bgcolor=#696969 ></body>
+    <style>
+        body {
+            margin: 0;
+            height: 200px;
+            width: 200px;
+        }
+        .header {
+            color:white;
+            font-size: 25px;
+            font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            text-indent: 5px;
+            background-image:url("images/header.png");
+            margin-top: 0px;
+            margin-left: 0px;
+            height:30px;
+            width:130px;
+            background-size:cover;
+            float:left;
+        }
+        .btn {
+            background-image:url("images/arrow1.png");
+            height: 30px;
+            width:30px;
+            background-size: cover;
+            float:right;
+            border:none;
+            background-color:white
+        }
+        .btn:hover {
+            background-color:#434343ff
+        }
+    </style>
+    <div class="header"> Edit List </div>
+    <button id="ret" class="btn"> </button>
+    <input type="text" id="name" style="margin-top: 10px; margin-left: 5px;" placeholder="Enter Word">
+    <button id="add" style="margin-top: 10px; margin-left: 5px;">Add</button>
+    <button id="rem" style="margin-top: 10px; margin-left: 5px;">Remove</button>
     <p id="out"></p>
-    <input type="text" id="name">
-    <button id="add">Add</button>
-    <button id="rem">Remove</button>
 </html>
