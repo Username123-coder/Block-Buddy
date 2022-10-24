@@ -4,7 +4,7 @@ window.onload = () => {
         console.log(lists);
         for (let i = 0; i < lists.length; i++) {
             for (let j = 0; j < lists[i].length; j++) {
-                document.body.innerHTML = document.body.innerHTML.replaceAll(lists[i][j], "[censured]");
+                document.body.innerHTML = document.body.innerHTML.replaceAll(lists[i][j], "[censored]");
             }
         }
     });
