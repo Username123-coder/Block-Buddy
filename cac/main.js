@@ -128,4 +128,4 @@ app.post("/addList", (req, res) => {
     database.addList(req.body.user, req.body.name, req.body.enabled, req.body.list);
 });
 
-var server = app.listen(8081, "192.168.0.103");
+var server = app.listen(8081);
