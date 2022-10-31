@@ -139,6 +139,7 @@ async function start() {
     if (en == 1) {
         check.checked = true;
     }
+    document.getElementById("listName").innerHTML = n.name;
 }
 
 function retu() {
