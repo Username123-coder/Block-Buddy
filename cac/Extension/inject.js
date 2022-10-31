@@ -11,8 +11,8 @@
                 const x = new String(lists[i][j]);
                 x.toLowerCase;
                 const y = x.substring(0, 1).toUpperCase + x.substring(1, x.length());
-                document.body.innerHTML = document.body.innerHTML.replaceAll(lists[i][j], "[censured]");
-                document.body.innerHTML = document.body.innerHTML.replaceAll(y, "[censured]");
+                document.body.innerHTML = document.body.innerHTML.replaceAll(lists[i][j], "[censored]");
+                document.body.innerHTML = document.body.innerHTML.replaceAll(y, "[censored]");
             }
         }
     });
