@@ -13,20 +13,23 @@ var init = async () => {
 
     ret = await res.json();
     var lists = ret.lists;
-
+    
     lists.forEach((l) => {
         var button = document.createElement("button");
+        var divider = document.createElement("div");
         button.innerHTML = l.listName;
+        button.className = "listBtn";
         button.addEventListener("click", () => {
             click(l.listName);
         });
         document.body.appendChild(button);
+        document.body.appendChild(divider);
     });
 };
 
-function addrem() {
-    chrome.action.setPopup({popup: "addrem.html"});
-    window.location.href = "addrem.html";
+function create() {
+    chrome.action.setPopup({popup: "menu.html"});
+    window.location.href = "menu.html";
 }
 
 function newTab() {
@@ -46,11 +49,9 @@ function ret(name) {
 }
 
 window.onload = async () => {
-    var el = document.getElementById("add/rem");
-    el.addEventListener("click", addrem);
+    var el = document.getElementById("create");
+    el.addEventListener("click", create);
     var b = document.getElementById("back");
     b.addEventListener("click", ret);
-    var t = document.getElementById("tab");
-    t.addEventListener("click", newTab);
     init();
 };
