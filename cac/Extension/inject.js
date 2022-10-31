@@ -12,8 +12,8 @@ chrome.runtime.sendMessage({method: "getLocalStorage", key: "status"}, function(
                 x.toLowerCase();
 
                 let y = x.substring(0, 1).toUpperCase() + x.substring(1, x.length);
-                document.body.innerHTML = document.body.innerHTML.replaceAll(lists[i][j], "[censored]");
-                document.body.innerHTML = document.body.innerHTML.replaceAll(y, "[censored]");
+                document.body.innerHTML = document.body.innerHTML.replace(/lists[i][j]/ig, "[censored]");
+                /*document.body.innerHTML = document.body.innerHTML.replaceAll(y, "[censored]");
 
                 let v = y.indexOf(" ");
                 while (v > -1) {
@@ -25,7 +25,7 @@ chrome.runtime.sendMessage({method: "getLocalStorage", key: "status"}, function(
                 document.body.innerHTML = document.body.innerHTML.replaceAll(y, "[censored]");
 
                 y = y.toUpperCase();
-                document.body.innerHTML = document.body.innerHTML.replaceAll(y, "[censored]");
+                document.body.innerHTML = document.body.innerHTML.replaceAll(y, "[censored]");*/
             }
         }
     }
