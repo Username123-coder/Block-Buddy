@@ -63,6 +63,6 @@ body {
     height: 25px;
 }
 
-.logBtn, .listBtn:hover {
+.logBtn:hover, .listBtn:hover {
     background-color:rgb(31, 30, 30);
 }
