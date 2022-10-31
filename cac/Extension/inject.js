@@ -10,6 +10,7 @@ chrome.runtime.sendMessage({method: "getLocalStorage", key: "status"}, function(
             if (lists[i][j] != "") {
                 let x = lists[i][j];
                 x.toLowerCase();
+
                 let y = x.substring(0, 1).toUpperCase() + x.substring(1, x.length);
                 x.toLowerCase();
                 document.body.innerHTML = document.body.innerHTML.replaceAll(lists[i][j], "[censored]");
