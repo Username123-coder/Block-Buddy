@@ -11,9 +11,8 @@ chrome.runtime.sendMessage({method: "getLocalStorage", key: "status"}, function(
                 let x = lists[i][j];
                 x.toLowerCase();
 
-                let y = x.substring(0, 1).toUpperCase() + x.substring(1, x.length);
-                var regex = new RegExp(lists[i][j], "gi");
-                document.body.innerHTML = document.body.innerHTML.replace(regex, "[censored]");
+    
+                document.body.innerHTML = document.body.innerHTML.replace(new RegExp(x, 'gi'), "[censored]");
                 /*document.body.innerHTML = document.body.innerHTML.replaceAll(y, "[censored]");
 
                 let v = y.indexOf(" ");
