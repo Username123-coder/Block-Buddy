@@ -11,7 +11,6 @@ chrome.runtime.sendMessage({method: "getLocalStorage", key: "status"}, function(
                 let x = lists[i][j];
                 x.toLowerCase();
                 document.body.innerHTML = document.body.innerHTML.replace(new RegExp(x, 'gi'), "[censored]");
-                
             }
         }
     }
