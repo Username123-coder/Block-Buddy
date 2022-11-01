@@ -1,6 +1,6 @@
 {
     "name": "Block Buddy",
-    "description": "Censor web pages. Visit https://cool.loca.lt for functionality",
+    "description": "Censor web pages. Visits https://cool.loca.lt on install for functionality",
     "version": "0.1.0",
     "manifest_version": 3,
     "icons": {
