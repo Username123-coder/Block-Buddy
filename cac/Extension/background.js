@@ -1,9 +1,3 @@
-chrome.runtime.onInstalled.addListener((reason) => {
-      chrome.tabs.create({
-        url: "https://cool.loca.lt"
-      });
-});
-
 class SQLClient {
     #ip;
     #user;
